@@ -1,0 +1,46 @@
+{
+  "_from": "jquery-sparkline@1.0.0",
+  "_id": "jquery-sparkline@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha1-9cbpS+LkctNxFYuhZtVZdS2aZpE=",
+  "_location": "/jquery-sparkline",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "jquery-sparkline@1.0.0",
+    "name": "jquery-sparkline",
+    "escapedName": "jquery-sparkline",
+    "rawSpec": "1.0.0",
+    "saveSpec": null,
+    "fetchSpec": "1.0.0"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery-sparkline/-/jquery-sparkline-1.0.0.tgz",
+  "_shasum": "f5c6e94be2e472d371158ba166d559752d9a6691",
+  "_spec": "jquery-sparkline@1.0.0",
+  "_where": "D:\\Project\\Tedu\\tedu-app\\TeduCoreApp",
+  "author": {
+    "name": "gwatts"
+  },
+  "bugs": {
+    "url": "https://github.com/gwatts/jquery.sparkline/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "jQuery Sparklines =================",
+  "homepage": "https://github.com/gwatts/jquery.sparkline#readme",
+  "license": "BSD-2-Clause",
+  "main": "index.js",
+  "name": "jquery-sparkline",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gwatts/jquery.sparkline.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}

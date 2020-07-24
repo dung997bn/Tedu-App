@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TeduCoreApp.Data\TeduCoreApp.Data.csproj" />
+    <ProjectReference Include="..\TeduCoreApp.Ultilities\TeduCoreApp.Ultilities.csproj" />
   </ItemGroup>
 
 </Project>

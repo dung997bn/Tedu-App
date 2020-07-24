@@ -247,6 +247,7 @@ namespace TeduCoreApp.Data.EF
                     Status = Status.Active
                 });
             }
+           await _context.SaveChangesAsync();
         }
     }
 }

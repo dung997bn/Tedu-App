@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TeduCoreApp.Application.ViewModels.Product;
 
 namespace TeduCoreApp.Application.Interfaces
@@ -13,18 +14,18 @@ namespace TeduCoreApp.Application.Interfaces
 
         void Delete(int id);
 
-        List<ProductCategoryViewModel> GetAll();
+        Task<List<ProductCategoryViewModel>> GetAll();
 
-        List<ProductCategoryViewModel> GetAll(string keyword);
+        Task<List<ProductCategoryViewModel>> GetAll(string keyword);
 
-        List<ProductCategoryViewModel> GetAllByParentId(int parentId);
+        Task<List<ProductCategoryViewModel>> GetAllByParentId(int parentId);
 
-        ProductCategoryViewModel GetById(int id);
+        Task<ProductCategoryViewModel> GetById(int id);
 
         void UpdateParentId(int sourceId, int targetId, Dictionary<int, int> items);
         void ReOrder(int sourceId, int targetId);
 
-        List<ProductCategoryViewModel> GetHomeCategories(int top);
+        Task<List<ProductCategoryViewModel>> GetHomeCategories(int top);
 
         void Save();
     }

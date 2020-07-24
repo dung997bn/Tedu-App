@@ -22,6 +22,13 @@ using AutoMapper;
 using TeduCoreApp.Services;
 using TeduCoreApp.Application.AutoMapper;
 using TeduCoreApp.Infrastructure.Interfaces;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Newtonsoft.Json.Serialization;
+using TeduCoreApp.Helpers;
 
 namespace TeduCoreApp
 {
@@ -63,10 +70,15 @@ namespace TeduCoreApp
             });
 
 
-            services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());
+             services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());
+           // services.AddAutoMapper(typeof(Startup));
+            //services.AddSingleton(Mapper.Configuration);
+            //services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
             services.AddTransient<IEmailSender, EmailSender>();
 
+            //Extensions
+            services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
 
             // Add application services.
             services.AddScoped<UserManager<AppUser>, UserManager<AppUser>>();
@@ -81,18 +93,27 @@ namespace TeduCoreApp
 
             //Repo
             services.AddTransient<IProductCategoryRepository, ProductCategoryRepository>();
-
+            services.AddTransient<IFunctionRepository, FunctionRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
+            services.AddTransient<IFunctionService, FunctionService>();
+            services.AddTransient<IProductService, ProductService>();
+
 
             services.AddTransient<DbInitializer>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            }); ;
             services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DbInitializer dbInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DbInitializer dbInitializer, ILoggerFactory logger)
         {
+            logger.AddFile("Logs/tedu-{Date}.txt");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -117,8 +138,21 @@ namespace TeduCoreApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+                endpoints.MapControllerRoute(
+                    "areaRoute",
+                    "{area:exists}/{controller=Login}/{action=Index}/{id?}");
+
                 endpoints.MapRazorPages();
             });
+
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //                Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
+            //    RequestPath = new PathString("/vendor")
+            //});
 
             dbInitializer.Seed().Wait();
         }

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TeduCoreApp.Application.Interfaces;
 using TeduCoreApp.Application.ViewModels.Product;
 using TeduCoreApp.Data.Entities;
@@ -17,12 +19,13 @@ namespace TeduCoreApp.Application.Implementations
     {
         private IProductCategoryRepository _productCategoryRepository;
         private IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ProductCategoryService(IProductCategoryRepository productCategoryRepository,
-            IUnitOfWork unitOfWork)
+        public ProductCategoryService(IProductCategoryRepository productCategoryRepository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _productCategoryRepository = productCategoryRepository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public ProductCategoryViewModel Add(ProductCategoryViewModel productCategoryVm)
@@ -38,45 +41,46 @@ namespace TeduCoreApp.Application.Implementations
             _productCategoryRepository.Remove(id);
         }
 
-        public List<ProductCategoryViewModel> GetAll()
+        public Task<List<ProductCategoryViewModel>> GetAll()
         {
-            return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
-                 .ProjectTo<ProductCategoryViewModel>().ToList();
+            var productCategories = _productCategoryRepository.FindAll().OrderBy(x => x.ParentId);
+            return _mapper.ProjectTo<ProductCategoryViewModel>(productCategories).ToListAsync();
         }
 
-        public List<ProductCategoryViewModel> GetAll(string keyword)
+        public Task<List<ProductCategoryViewModel>> GetAll(string keyword)
         {
+            var productCategories = _productCategoryRepository.FindAll();
             if (!string.IsNullOrEmpty(keyword))
-                return _productCategoryRepository.FindAll(x => x.Name.Contains(keyword)
+                return _mapper.ProjectTo<ProductCategoryViewModel>(productCategories.Where(x => x.Name.Contains(keyword)
                 || x.Description.Contains(keyword))
-                    .OrderBy(x => x.ParentId).ProjectTo<ProductCategoryViewModel>().ToList();
+                    .OrderBy(x => x.ParentId)).ToListAsync();
+
             else
-                return _productCategoryRepository.FindAll().OrderBy(x => x.ParentId)
-                    .ProjectTo<ProductCategoryViewModel>()
-                    .ToList();
+                return _mapper.ProjectTo<ProductCategoryViewModel>(productCategories
+                    .OrderBy(x => x.ParentId)).ToListAsync();
         }
 
-        public List<ProductCategoryViewModel> GetAllByParentId(int parentId)
+        public Task<List<ProductCategoryViewModel>> GetAllByParentId(int parentId)
         {
-            return _productCategoryRepository.FindAll(x => x.Status == Status.Active
-            && x.ParentId == parentId)
-             .ProjectTo<ProductCategoryViewModel>()
-             .ToList();
+            var productCategories = _productCategoryRepository.FindAll(x => x.Status == Status.Active && x.ParentId == parentId);
+            return _mapper.ProjectTo<ProductCategoryViewModel>(productCategories
+                          .OrderBy(x => x.ParentId)).ToListAsync();
         }
 
-        public ProductCategoryViewModel GetById(int id)
+        public Task<ProductCategoryViewModel> GetById(int id)
         {
-            return Mapper.Map<ProductCategory, ProductCategoryViewModel>(_productCategoryRepository.FindById(id));
+            return Task.FromResult(_mapper.Map<ProductCategory, ProductCategoryViewModel>(_productCategoryRepository.FindById(id)));
+
         }
 
-        public List<ProductCategoryViewModel> GetHomeCategories(int top)
+        public Task<List<ProductCategoryViewModel>> GetHomeCategories(int top)
         {
             var query = _productCategoryRepository
                 .FindAll(x => x.HomeFlag == true, c => c.Products)
                   .OrderBy(x => x.HomeOrder)
-                  .Take(top).ProjectTo<ProductCategoryViewModel>();
+                  .Take(top);;
 
-            var categories = query.ToList();
+            var categories = query;
             foreach (var category in categories)
             {
                 //category.Products = _productRepository
@@ -85,7 +89,7 @@ namespace TeduCoreApp.Application.Implementations
                 //    .Take(5)
                 //    .ProjectTo<ProductViewModel>().ToList();
             }
-            return categories;
+            return _mapper.ProjectTo<ProductCategoryViewModel>(categories.OrderBy(x => x.ParentId)).ToListAsync();
         }
 
         public void ReOrder(int sourceId, int targetId)

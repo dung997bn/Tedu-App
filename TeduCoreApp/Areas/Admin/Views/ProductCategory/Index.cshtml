@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Styles{
+    <link href="~/admin-side/libs/jQuery-EasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/admin-side/libs/jQuery-EasyUI/themes/icon.css" rel="stylesheet" />
+}
+
+@section Scripts{
+    <script src="~/admin-side/libs/jQuery-EasyUI/jquery.easyui.min.js"></script>
+    <script src="~/admin-side/app/controller/product-category/index.js" asp-append-version="true"></script>
+    <script>
+        var productCategory = new productCategoryController();
+        productCategory.initialize();
+    </script>
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Product Category <small>Some examples to get you started</small></h3>
+    </div>
+
+    <div class="title_right">
+        <div class="col-md-4 col-sm-12  form-group pull-right top_search">
+            <button class="btn btn-success" id="btnCreate" type="button">Create</button>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <ul id="treeProductCategory"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+
