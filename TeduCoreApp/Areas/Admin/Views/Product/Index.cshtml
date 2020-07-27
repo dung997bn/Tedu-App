@@ -5,11 +5,18 @@
 }
 
 @section Scripts{
+    <script src="~/admin-side/libs/jQuery-EasyUI/jquery.easyui.min.js"></script>
+    <script src="~/admin-side/app/controller/product-category/index.js" asp-append-version="true"></script>
     <script src="~/admin-side/app/controller/product/index.js"></script>
     <script>
         var product = new productController();
         product.initialize();
     </script>
+}
+
+@section Styles{
+    <link href="~/admin-side/libs/jQuery-EasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/admin-side/libs/jQuery-EasyUI/themes/icon.css" rel="stylesheet" />
 }
 
 <div class="page-title">
@@ -18,7 +25,10 @@
     </div>
 
     <div class="title_right">
-        <div class="col-md-4 col-sm-12  form-group pull-left top_search">
+        <div class="col-md-2 col-sm-12  form-group pull-right">
+            <button id="btnCreate" class="btn btn-success">Create</button>
+        </div>
+        <div class="col-md-4 col-sm-12  form-group pull-left top_search mt-sm">
             <select class="form-control" id="ddlCategorySearch">
                 <option>--Select category--</option>
             </select>
@@ -32,6 +42,8 @@
                 </span>
             </div>
         </div>
+
+
     </div>
 </div>
 
@@ -91,8 +103,8 @@
 <script id="table-template" type="x-tmpl-mustache">
     <tr>
         <th scope="row">
-            <button class="btn btn-default btn-sm"><i class="fa fa-pencil"></i></button>
-            <button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+            <button class="btn btn-default btn-sm btn-edit" data-id="{{Id}}"><i class="fa fa-pencil"></i></button>
+            <button class="btn btn-danger btn-sm btn-delete" data-id="{{Id}}"><i class="fa fa-trash"></i></button>
         </th>
         <td>{{Name}}</td>
         <td>{{CategoryName}}</td>
@@ -102,3 +114,6 @@
         <td>{{{Status}}}</td>
     </tr>
 </script>
+
+
+@Html.Partial("_AddEditModal.cshtml")

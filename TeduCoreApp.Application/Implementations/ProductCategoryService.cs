@@ -30,7 +30,7 @@ namespace TeduCoreApp.Application.Implementations
 
         public ProductCategoryViewModel Add(ProductCategoryViewModel productCategoryVm)
         {
-            var productCategory = Mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
+            var productCategory = _mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
             _productCategoryRepository.Add(productCategory);
             return productCategoryVm;
 
@@ -43,7 +43,7 @@ namespace TeduCoreApp.Application.Implementations
 
         public Task<List<ProductCategoryViewModel>> GetAll()
         {
-            var productCategories = _productCategoryRepository.FindAll().OrderBy(x => x.ParentId);
+            var productCategories = _productCategoryRepository.FindAll().OrderBy(x => x.SortOrder);
             return _mapper.ProjectTo<ProductCategoryViewModel>(productCategories).ToListAsync();
         }
 
@@ -94,7 +94,15 @@ namespace TeduCoreApp.Application.Implementations
 
         public void ReOrder(int sourceId, int targetId)
         {
-            throw new NotImplementedException();
+            var source = _productCategoryRepository.FindById(sourceId);
+            var target = _productCategoryRepository.FindById(targetId);
+            int tempOrder = source.SortOrder;
+            source.SortOrder = target.SortOrder;
+            target.SortOrder = tempOrder;
+
+            _productCategoryRepository.Update(source);
+            _productCategoryRepository.Update(target);
+            Save();
         }
 
         public void Save()
@@ -104,12 +112,23 @@ namespace TeduCoreApp.Application.Implementations
 
         public void Update(ProductCategoryViewModel productCategoryVm)
         {
-            throw new NotImplementedException();
+            var productCategory = _mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryVm);
+            _productCategoryRepository.Update(productCategory);
         }
 
         public void UpdateParentId(int sourceId, int targetId, Dictionary<int, int> items)
         {
-            throw new NotImplementedException();
+            var sourceCategory = _productCategoryRepository.FindById(sourceId);
+            sourceCategory.ParentId = targetId;
+            _productCategoryRepository.Update(sourceCategory);
+
+            //Get all sibling
+            var sibling = _productCategoryRepository.FindAll(x => items.ContainsKey(x.Id));
+            foreach (var child in sibling)
+            {
+                child.SortOrder = items[child.Id];
+                _productCategoryRepository.Update(child);
+            }
         }
     }
 }

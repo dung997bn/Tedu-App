@@ -79,6 +79,7 @@ namespace TeduCoreApp.Data.EF
         public void RemoveMultiple(List<T> entities)
         {
             _context.Set<T>().RemoveRange(entities);
+            _context.SaveChanges();
         }
 
         public void Update(T entity)

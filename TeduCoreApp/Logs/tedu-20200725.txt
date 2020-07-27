@@ -26,3 +26,7 @@
 2020-07-25T01:07:35.2408698+07:00  [INF] Hosting environment: "Development" (c3307c92)
 2020-07-25T01:07:35.2429284+07:00  [INF] Content root path: "D:\Project\Tedu\tedu-app\TeduCoreApp" (b5d60022)
 2020-07-25T01:07:46.5462366+07:00 8000000c-0007-ee00-b63f-84710c7967bb [INF] User logged in. (fdce0db4)
+2020-07-25T12:31:20.5976934+07:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-07-25T12:31:20.6215738+07:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-07-25T12:31:20.6238428+07:00  [INF] Content root path: "D:\Project\Tedu\tedu-app\TeduCoreApp" (b5d60022)
+2020-07-25T12:31:32.1956637+07:00 8000001a-0000-fa00-b63f-84710c7967bb [INF] User logged in. (fdce0db4)

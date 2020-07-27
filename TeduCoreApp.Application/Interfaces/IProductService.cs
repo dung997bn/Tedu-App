@@ -11,5 +11,15 @@ namespace TeduCoreApp.Application.Interfaces
     {
         Task<List<ProductViewModel>> GetAll();
         Task<PagedResult<ProductViewModel>> GetAllPaging(int? categoryId, string keyword, int page, int pageSize);
+
+        ProductViewModel Add(ProductViewModel product);
+
+        void Update(ProductViewModel product);
+
+        void Delete(int id);
+
+        ProductViewModel GetById(int id);
+
+        void Save();
     }
 }
