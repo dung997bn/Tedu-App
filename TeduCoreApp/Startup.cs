@@ -29,6 +29,8 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Newtonsoft.Json.Serialization;
 using TeduCoreApp.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using TeduCoreApp.Authorization;
 
 namespace TeduCoreApp
 {
@@ -70,8 +72,8 @@ namespace TeduCoreApp
             });
 
 
-             services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());
-           // services.AddAutoMapper(typeof(Startup));
+            services.AddSingleton(AutoMapperConfig.RegisterMappings().CreateMapper());
+            // services.AddAutoMapper(typeof(Startup));
             //services.AddSingleton(Mapper.Configuration);
             //services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
@@ -97,13 +99,18 @@ namespace TeduCoreApp
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<IProductTagRepository, ProductTagRepository>();
+            services.AddTransient<IPermissionRepository, PermissionRepository>();
+
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
             services.AddTransient<IFunctionService, FunctionService>();
             services.AddTransient<IProductService, ProductService>();
-
-
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<DbInitializer>();
+
+            services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();
+
             services.AddControllersWithViews().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;

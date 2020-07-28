@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using TeduCoreApp.Application.Interfaces;
 using TeduCoreApp.Application.ViewModels.Product;
+using TeduCoreApp.Authorization;
 using TeduCoreApp.Ultilities.Helpers;
 
 namespace TeduCoreApp.Areas.Admin.Controllers
@@ -13,14 +15,19 @@ namespace TeduCoreApp.Areas.Admin.Controllers
     public class ProductCategoryController : BaseController
     {
         IProductCategoryService _productCategory;
+        private readonly IAuthorizationService _authorizationService;
 
-        public ProductCategoryController(IProductCategoryService productCategory)
+        public ProductCategoryController(IProductCategoryService productCategory, IAuthorizationService authorizationService)
         {
             _productCategory = productCategory;
+            _authorizationService = authorizationService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var result = await _authorizationService.AuthorizeAsync(User, "PRODUCT_CATEGORY", Operations.Read);
+            if (result.Succeeded == false)
+                return new RedirectResult("/Admin/Login/Index");
             return View();
         }
 
