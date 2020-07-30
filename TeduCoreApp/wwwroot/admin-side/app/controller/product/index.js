@@ -29,7 +29,6 @@
             loadData(true);
         });
 
-
         $('#frmMaintainance').validate({
             errorClass: 'red',
             ignore: [],
@@ -226,6 +225,62 @@
             });
         });
 
+        //Import Excel
+        $('#btn-import').on('click', function () {
+            initTreeDropDownCategory();
+            $('#modal-import-excel').modal('show');
+        });
+
+        $('#btnImportExcel').on('click', function () {
+            var fileUpload = $("#fileInputExcel").get(0);
+            var files = fileUpload.files;
+            var categoryId = $('#ddlCategoryIdImportExcel').combotree('getValue');
+            if (categoryId == null || categoryId == 0) {
+                return;
+            }
+            // Create FormData object  
+            var fileData = new FormData();
+            // Looping over all files and add it to FormData object  
+            for (var i = 0; i < files.length; i++) {
+                fileData.append("files", files[i]);
+            }
+            // Adding one more key to FormData object  
+            fileData.append('categoryId', categoryId);
+            $.ajax({
+                url: '/Admin/Product/ImportExcel',
+                type: 'POST',
+                data: fileData,
+                processData: false,  // tell jQuery not to process the data
+                contentType: false,  // tell jQuery not to set contentType
+                success: function (data) {
+                    $('#modal-import-excel').modal('hide');
+                    loadData();
+                    tedu.notify('Upload file succesful!', 'success');
+
+                }
+            });
+            return false;
+        });
+
+
+        $('#btn-export').on('click', function () {
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Product/ExportExcel",
+                beforeSend: function () {
+                    tedu.startLoading();
+                },
+                success: function (response) {
+                    window.location.href = response;
+                    tedu.stopLoading();
+                },
+                error: function () {
+                    tedu.notify('Has an error in progress', 'error');
+                    tedu.stopLoading();
+                }
+            });
+        });
+
     }
 
     function initTreeDropDownCategory(selectedId) {
@@ -248,12 +303,16 @@
                 $('#ddlCategoryIdM').combotree({
                     data: arr
                 });
+                $('#ddlCategoryIdImportExcel').combotree({
+                    data: arr
+                });
                 if (selectedId != undefined) {
                     $('#ddlCategoryIdM').combotree('setValue', selectedId);
                 }
             }
         });
     }
+
     function resetFormMaintainance() {
         $('#hidIdM').val(0);
         $('#txtNameM').val('');
@@ -343,8 +402,6 @@
             }
         })
     }
-
-
 
     function wrapPaging(recordCount, callBack, changePageSize) {
         var totalsize = Math.ceil(recordCount / tedu.configs.pageSize);

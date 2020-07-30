@@ -21,20 +21,23 @@
 
 <div class="page-title">
     <div class="title_left">
-        <h3>Product <small>Some examples to get you started</small></h3>
+        <h3>Product</h3>
     </div>
 
     <div class="title_right">
-        <div class="col-md-2 col-sm-12  form-group pull-right">
+        <div class="col-md-7 col-sm-12  form-group pull-right">
             <button id="btnCreate" class="btn btn-success">Create</button>
+            <a class="btn btn-danger" href="~/admin-side/templates//ProductImportTemplate.xlsx">Template</a>
+            <button class="btn btn-primary" id="btn-import" type="button"><i class="fa fa-file-excel-o"></i></button>
+            <button class="btn btn-default" id="btn-export" type="button"><i class="fa fa-forward"></i></button>
         </div>
-        <div class="col-md-4 col-sm-12  form-group pull-left top_search mt-sm">
+        <div class="col-md-3 col-sm-12  form-group pull-left top_search mt-sm">
             <select class="form-control" id="ddlCategorySearch">
                 <option>--Select category--</option>
             </select>
         </div>
 
-        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+        <div class="col-md-2 col-sm-2 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
                 <input type="text" class="form-control" id="txtKeyword" placeholder="Search for...">
                 <span class="input-group-btn">
@@ -117,3 +120,4 @@
 
 
 @Html.Partial("_AddEditModal.cshtml")
+@Html.Partial("_ImportExcelModal.cshtml")
