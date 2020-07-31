@@ -46,10 +46,13 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="wwwroot\export-files\" />
     <Folder Include="wwwroot\uploaded\images\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\admin-side\libs\bootstrap-datepicker\.github\ISSUE_TEMPLATE.md" />
+    <None Include="wwwroot\admin-side\libs\bootstrap-datepicker\.github\PULL_REQUEST_TEMPLATE.md" />
     <None Include="wwwroot\lib\chart.js\node_modules\moment\CHANGELOG.md" />
     <None Include="wwwroot\lib\chart.js\node_modules\moment\ender.js" />
     <None Include="wwwroot\lib\chart.js\node_modules\moment\LICENSE" />

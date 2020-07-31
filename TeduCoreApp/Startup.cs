@@ -100,6 +100,10 @@ namespace TeduCoreApp
             services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<IProductTagRepository, ProductTagRepository>();
             services.AddTransient<IPermissionRepository, PermissionRepository>();
+            services.AddTransient<IBillRepository, BillRepository>();
+            services.AddTransient<IBillDetailRepository, BillDetailRepository>();
+            services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddTransient<ISizeRepository, SizeRepository>();
 
             //Services
             services.AddTransient<IProductCategoryService, ProductCategoryService>();
@@ -107,6 +111,7 @@ namespace TeduCoreApp
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IBillService, BillService>();
             services.AddTransient<DbInitializer>();
 
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandler>();

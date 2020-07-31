@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TeduCoreApp.Application.ViewModels.Bill;
 using TeduCoreApp.Application.ViewModels.Product;
 using TeduCoreApp.Application.ViewModels.System;
 using TeduCoreApp.Data.Entities;
@@ -26,6 +27,15 @@ namespace TeduCoreApp.Application.AutoMapper
                  c.Email, c.PhoneNumber, c.Avatar, c.Status));
             CreateMap<PermissionViewModel, Permission>()
                     .ConstructUsing(c => new Permission(c.RoleId, c.FunctionId, c.CanCreate, c.CanRead, c.CanUpdate, c.CanDelete));
+
+            CreateMap<BillViewModel, Bill>()
+               .ConstructUsing(c => new Bill(c.Id, c.CustomerName, c.CustomerAddress,
+               c.CustomerMobile, c.CustomerMessage, c.BillStatus,
+               c.PaymentMethod, c.Status, c.CustomerId));
+
+            CreateMap<BillDetailViewModel, BillDetail>()
+              .ConstructUsing(c => new BillDetail(c.Id, c.BillId, c.ProductId,
+              c.Quantity, c.Price, c.ColorId, c.SizeId));
         }
     }
 }

@@ -21,9 +21,10 @@ namespace TeduCoreApp.Areas.Admin.Controllers
         {
             return View();
         }
-        public IActionResult GetAll()
+        public async Task< IActionResult> GetAll()
         {
-            var model = _userService.GetAllAsync();
+            List<AppUserViewModel> model = null;
+            model =await _userService.GetAllAsync();
 
             return new OkObjectResult(model);
         }

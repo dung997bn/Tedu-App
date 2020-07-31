@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TeduCoreApp.Application.ViewModels.Bill;
 using TeduCoreApp.Application.ViewModels.Product;
 using TeduCoreApp.Application.ViewModels.System;
 using TeduCoreApp.Data.Entities;
@@ -18,6 +19,11 @@ namespace TeduCoreApp.Application.AutoMapper
 
             CreateMap<AppUser, AppUserViewModel>();
             CreateMap<AppRole, AppRoleViewModel>();
+
+            CreateMap<Bill, BillViewModel>();
+            CreateMap<BillDetail, BillDetailViewModel>();
+            CreateMap<Color, ColorViewModel>();
+            CreateMap<Size, SizeViewModel>();
         }
     }
 }
