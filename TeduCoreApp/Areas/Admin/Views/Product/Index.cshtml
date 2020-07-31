@@ -6,8 +6,10 @@
 
 @section Scripts{
     <script src="~/admin-side/libs/jQuery-EasyUI/jquery.easyui.min.js"></script>
-    <script src="~/admin-side/app/controller/product-category/index.js" asp-append-version="true"></script>
-    <script src="~/admin-side/app/controller/product/index.js"></script>
+    <script src="~/admin-side/app/controller/product/quantity-management.js" asp-append-version="true"></script>
+    <script src="~/admin-side/app/controller/product/image-management.js" asp-append-version="true"></script>
+    <script src="~/admin-side/app/controller/product/whole-price-management.js"></script>
+    <script src="~/admin-side/app/controller/product/index.js" asp-append-version="true"></script>
     <script>
         var product = new productController();
         product.initialize();
@@ -108,6 +110,9 @@
         <th scope="row">
             <button class="btn btn-default btn-sm btn-edit" data-id="{{Id}}"><i class="fa fa-pencil"></i></button>
             <button class="btn btn-danger btn-sm btn-delete" data-id="{{Id}}"><i class="fa fa-trash"></i></button>
+            <a href="#" data-id="{{Id}}" class="btn btn-xs btn-images"><i class="fa fa-image"></i></a>
+            <a href="#" data-id="{{Id}}" class="btn btn-xs btn-quantity"><i class="fa fa-hourglass-start"></i></a>
+            <a href="#" data-id="{{Id}}" class="btn btn-xs btn-whole-price"><i class="fa fa-money"></i></a>
         </th>
         <td>{{Name}}</td>
         <td>{{CategoryName}}</td>
@@ -121,3 +126,6 @@
 
 @Html.Partial("_AddEditModal.cshtml")
 @Html.Partial("_ImportExcelModal.cshtml")
+@Html.Partial("_QuantityManagement.cshtml")
+@Html.Partial("_ImageManagement.cshtml")
+@Html.Partial("_WholePriceManagement.cshtml")
