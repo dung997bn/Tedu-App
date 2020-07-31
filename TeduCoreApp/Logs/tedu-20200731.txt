@@ -85,3 +85,7 @@ System.InvalidOperationException: Error saving file D:\Project\Tedu\tedu-app\Ted
 2020-07-31T21:49:14.6989257+07:00  [INF] Hosting environment: "Development" (c3307c92)
 2020-07-31T21:49:14.7017759+07:00  [INF] Content root path: "D:\Project\Tedu\tedu-app\TeduCoreApp" (b5d60022)
 2020-07-31T21:49:27.5635123+07:00 800000a6-0000-f400-b63f-84710c7967bb [INF] User logged in. (fdce0db4)
+2020-07-31T21:57:42.8755778+07:00  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2020-07-31T21:57:42.8838477+07:00  [INF] Hosting environment: "Development" (c3307c92)
+2020-07-31T21:57:42.8861010+07:00  [INF] Content root path: "D:\Project\Tedu\tedu-app\TeduCoreApp" (b5d60022)
+2020-07-31T21:57:55.9132292+07:00 800000df-0000-f100-b63f-84710c7967bb [INF] User logged in. (fdce0db4)
