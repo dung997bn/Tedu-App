@@ -271,6 +271,21 @@ namespace TeduCoreApp.Application.Implementations
             return _mapper.ProjectTo<WholePriceViewModel>(_wholePriceRepository.FindAll(x => x.ProductId == productId)).ToList();
         }
 
+        public Task<List<ProductViewModel>> GetLastest(int top)
+        {
+            return _mapper.ProjectTo<ProductViewModel>(_productRepository.FindAll(x => x.Status == Status.Active)
+                .OrderByDescending(x => x.DateCreated)
+                .Take(top)).ToListAsync();
+        }
+
+        public Task<List<ProductViewModel>> GetHotProduct(int top)
+        {
+            return _mapper
+                .ProjectTo<ProductViewModel>(_productRepository.FindAll(x => x.Status == Status.Active && x.HotFlag == true)
+                .OrderByDescending(x => x.DateCreated)
+                .Take(top))
+                .ToListAsync();
+        }
 
     }
 }

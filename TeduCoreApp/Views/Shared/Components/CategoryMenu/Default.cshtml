@@ -1,0 +1,32 @@
+﻿@model List<ProductCategoryViewModel>
+
+<div class="mm-toggle-wrap">
+    <div class="mm-toggle"><i class="fa fa-align-justify"></i><span class="mm-label">Menu</span> </div>
+</div>
+<div class="nav-inner">
+    <ul id="nav" class="hidden-xs">
+        <li class="drop-menu">
+            <a href="index.html" class="level-top active"><span>Home</span></a>
+        </li>
+        @foreach (var item in Model.Where(x => x.ParentId == null))
+        {
+            @if (Model.Any(x => x.ParentId == item.Id))
+            {
+                <li class="drop-menu">
+                    <a href="/@(item.SeoAlias)-c.@(item.Id).html"><span>@item.Name</span></a>
+                    <ul>
+                        @foreach (var child in Model.Where(x => x.ParentId == item.Id))
+                        {
+                            <li>  <a href="/@(item.SeoAlias)-c.@(item.Id).html"><span>@item.Name</span></a> </li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="mega-menu">  <a class="level-top" href="/@(item.SeoAlias)-c.@(item.Id).html"><span>@item.Name</span></a> </li>
+            }
+
+        }
+    </ul>
+</div>

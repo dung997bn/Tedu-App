@@ -1,49 +1,92 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - TeduCoreApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Basic page needs -->
+    <meta charset="utf-8">
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>ShopMart premium HTML5 &amp; CSS3 template</title>
+    <meta name="description" content="best template, template free, responsive theme, fashion store, responsive theme, responsive html theme, Premium website templates, web templates, Multi-Purpose Responsive HTML5 Template">
+    <meta name="keywords" content="bootstrap, ecommerce, fashion, layout, responsive, responsive template, responsive template download, responsive theme, retail, shop, shopping, store, Premium website templates, web templates, Multi-Purpose Responsive HTML5 Template" />
+    <!-- Mobile specific metas  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon  -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <!-- CSS Style -->
+    <link rel="stylesheet" href="~/client-side/style.css">
+    @RenderSection("Styles", required: false)
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+<body class="@ViewData["BodyClass"]">
+    <!-- mobile menu -->
+    @await Component.InvokeAsync("MobileMenu")
+    <div id="page">
+        <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <!-- Header -->
+        <partial name="_Header.cshtml" model="null" />
+        <!-- end header -->
+        <!-- Navigation -->
+        <nav>
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TeduCoreApp</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+                @await Component.InvokeAsync("CategoryMenu")
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <!-- end nav -->
+        <!-- our features -->
+        <partial name="_OurFeatures.cshtml" model="null" />
+        <!-- JTV Home Slider -->
+        @RenderBody()
+        <!-- Brand Logo -->
+         <partial name="_Footer.cshtml" model="null" />
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - TeduCoreApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- End Footer -->
+    <!-- jquery js -->
+    <script type="text/javascript" src="~/client-side/js/jquery.min.js"></script>
+    <!-- bootstrap js -->
+    <script type="text/javascript" src="~/client-side/js/bootstrap.min.js"></script>
+    <!-- owl.carousel.min js -->
+    <script type="text/javascript" src="~/client-side/js/owl.carousel.min.js"></script>
+    <!-- jtv-jtv-mobile-menu js -->
+    <script type="text/javascript" src="~/client-side/js/jtv-mobile-menu.js"></script>
+    <!-- countdown js -->
+    <script type="text/javascript" src="~/client-side/js/countdown.js"></script>
+    <!-- main js -->
+    <script type="text/javascript" src="~/client-side/js/main.js"></script>
+    <!-- rev-slider js -->
+    <script type="text/javascript" src="~/client-side/js/rev-slider.js"></script>
     @RenderSection("Scripts", required: false)
+    <!--Newsletter Popup Start-->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog newsletter-popup">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div class="modal-body">
+                    <h4 class="modal-title">NEWSLETTER SIGNUP</h4>
+                    <form id="newsletter-form" method="post" action="#">
+                        <div class="content-subscribe">
+                            <div class="form-subscribe-header">
+                                <label>Subscribe to be the first to know about Sales, Events, and Exclusive Offers!</label>
+                            </div>
+                            <div class="input-box">
+                                <input type="text" class="input-text newsletter-subscribe" title="Sign up for our newsletter" name="email" placeholder="Enter your email address">
+                            </div>
+                            <div class="actions">
+                                <button class="button-subscribe" title="Subscribe" type="submit">Subscribe</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="subscribe-bottom">
+                        <input name="notshowpopup" id="notshowpopup" type="checkbox">
+                        Don’t show this popup again
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Newsletter Popup-->
 </body>
 </html>

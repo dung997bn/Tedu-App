@@ -63,13 +63,13 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th width="10%">#</th>
                             <th>Name</th>
                             <th>Category</th>
                             <th>Price</th>
                             <th>Image</th>
                             <th>Created Date</th>
                             <th>Status</th>
+                            <th width="30%">#</th>
                         </tr>
                     </thead>
                     <tbody id="tbl-content">
@@ -107,6 +107,12 @@
 
 <script id="table-template" type="x-tmpl-mustache">
     <tr>
+        <td>{{Name}}</td>
+        <td>{{CategoryName}}</td>
+        <td>{{Price}}</td>
+        <td>{{{Image}}}</td>
+        <td>{{CreatedDate}}</td>
+        <td>{{{Status}}}</td>
         <th scope="row">
             <button class="btn btn-default btn-sm btn-edit" data-id="{{Id}}"><i class="fa fa-pencil"></i></button>
             <button class="btn btn-danger btn-sm btn-delete" data-id="{{Id}}"><i class="fa fa-trash"></i></button>
@@ -114,12 +120,6 @@
             <a href="#" data-id="{{Id}}" class="btn btn-xs btn-quantity"><i class="fa fa-hourglass-start"></i></a>
             <a href="#" data-id="{{Id}}" class="btn btn-xs btn-whole-price"><i class="fa fa-money"></i></a>
         </th>
-        <td>{{Name}}</td>
-        <td>{{CategoryName}}</td>
-        <td>{{Price}}</td>
-        <td>{{{Image}}}</td>
-        <td>{{CreatedDate}}</td>
-        <td>{{{Status}}}</td>
     </tr>
 </script>
 

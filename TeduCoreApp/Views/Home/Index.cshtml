@@ -1,8 +1,218 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Scripts{
+    <script src="~/client-side/app/controllers/home/init.js"></script>
+    <script type='text/javascript'>
+        var init = new HomeInitController();
+        init.init();
+    </script>
+}
+
+<div class="jtv-slideshow">
+    <div class="container">
+        <div class="row">
+            <partial name="_JtvSlideShow.cshtml" model="@Model.HomeSlides" />
+            <!-- end JTV Home Slider -->
+            <!-- hot deal products -->
+            <partial name="_HotDealProduct.cshtml" model="@Model.HotProducts" />
+        </div>
+    </div>
 </div>
+
+<div class="content-page">
+    <partial name="_FeaturedProducts.cshtml" model="@Model" />
+</div>
+<!-- jtv bottom banner section -->
+<div class="jtv-bottom-banner-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="jtv-img-box">
+                    <a href="#">
+                        <img src="~/client-side/images/jtv-banner1.jpg" alt="bottom banner">
+                        <div class="jtv-banner-info">
+                            <span>Hot fashion 2o17</span>
+                            <h3>Women Style</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="jtv-img-box">
+                    <a href="#">
+                        <img src="~/client-side/images/jtv-banner2.jpg" alt="bottom banner">
+                        <div class="jtv-banner-info">
+                            <span>New Arrivals</span>
+                            <h3>Leather Bags</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="jtv-img-box">
+                    <a href="#">
+                        <img src="~/client-side/images/jtv-banner3.jpg" alt="bottom banner">
+                        <div class="jtv-banner-info">
+                            <span>Discount - 45% OFF</span>
+                            <h3>New Fashion</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- bestsell Slider -->
+<section class="jtv-bestsell-section">
+    <partial name="_BestSellerProducts.cshtml" model="@Model.TopSellProducts" />
+</section>
+<!-- End Bestsell Slider -->
+<div class="jtv-testimonial-block">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" data-wow-delay="0.2s">
+                <div class="block-title">
+                    <h2>What People are saying</h2>
+                </div>
+                <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                    <!-- Bottom Carousel Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#quote-carousel" data-slide-to="0"><img class="img-responsive " src="~/client-side/images/testimonials-img1.jpg" alt=""> </li>
+                        <li data-target="#quote-carousel" data-slide-to="1"><img class="img-responsive" src="~/client-side/images/testimonials-img2.jpg" alt=""> </li>
+                        <li data-target="#quote-carousel" data-slide-to="2" class="active"><img class="img-responsive" src="~/client-side/images/testimonials-img3.jpg" alt=""> </li>
+                        <li data-target="#quote-carousel" data-slide-to="3"><img class="img-responsive" src="~/client-side/images/testimonials-img4.jpg" alt=""> </li>
+                        <li data-target="#quote-carousel" data-slide-to="4"><img class="img-responsive" src="~/client-side/images/testimonials-img5.jpg" alt=""> </li>
+                    </ol>
+
+                    <!-- Carousel Slides / Quotes -->
+                    <div class="carousel-inner text-center">
+
+                        <!-- Quote 1 -->
+                        <div class="item">
+                            <blockquote>
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. !</p>
+                                        <div class="holder-info"> <strong class="name">Vince Roy</strong> <strong class="designation">CEO, XYZ Softwear</strong></div>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <!-- Quote 2 -->
+                        <div class="item">
+                            <blockquote>
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+                                        <div class="holder-info"><strong class="name">John Doe</strong> <strong class="designation">CEO, ABC Softwear</strong></div>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <!-- Quote 3 -->
+                        <div class="item active">
+                            <blockquote>
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. .</p>
+                                        <div class="holder-info"> <strong class="name">John Doe</strong> <strong class="designation">Managing Director</strong></div>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <!-- Quote 4 -->
+                        <div class="item">
+                            <blockquote>
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. .</p>
+                                        <div class="holder-info"> <strong class="name">Vince Roy</strong> <strong class="designation">CEO, XYZ Softwear</strong></div>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <!-- Quote 5 -->
+                        <div class="item">
+                            <blockquote>
+                                <div class="row">
+                                    <div class="col-sm-8 col-sm-offset-2">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. .</p>
+                                        <div class="holder-info"><strong class="name">John Doe</strong> <strong class="designation">CEO, ABC Softwear</strong></div>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+
+                    <!-- Carousel Buttons Next/Prev -->
+                    <a data-slide="prev" href="#quote-carousel" class="left carousel-control"><i class="fa fa-chevron-left"></i></a> <a data-slide="next" href="#quote-carousel" class="right carousel-control"><i class="fa fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Special Product slider -->
+
+<section class="special-products">
+    <partial name="_SpecialProducts.cshtml" model="@Model.HotProducts" />
+</section>
+
+<!-- Latest Blog -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="blog-outer-container">
+                <div class="jtv-title">
+                    <h2>Latest Blog</h2>
+                </div>
+                <div class="blog-inner">
+                    <div class="col-sm-4">
+                        <div class="entry-thumb"> <a href="blog_single_post.html"> <img alt="Blog" src="~/client-side/images/blog-img1.jpg"> </a> </div>
+                        <div class="blog-preview_info">
+                            <h3><a href="blog_single_post.html">Winter Morning ShopMart</a></h3>
+                            <ul class="post-meta">
+                                <li><i class="fa fa-user"></i><a href="#">admin</a> </li>
+                                <li><i class="fa fa-comments"></i><a href="#">12 comments</a> </li>
+                                <li><i class="fa fa-calendar"></i>2017-02-25</li>
+                            </ul>
+                            <div class="blog-preview_desc">Lorem ipsum dolor sit ame consetur adipisicing elit. Voluptate, consetur adipisicing elit.Lorem ipsum dolor.</div>
+                            <a class="blog-preview_btn" href="blog_single_post.html">Read More <i class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="entry-thumb"> <a href="blog_single_post.html"> <img alt="Blog" src="~/client-side/images/blog-img2.jpg"> </a> </div>
+                        <div class="blog-preview_info">
+                            <h3><a href="blog_single_post.html">Perfect for promoting</a></h3>
+                            <ul class="post-meta">
+                                <li><i class="fa fa-user"></i><a href="#">admin</a> </li>
+                                <li><i class="fa fa-comments"></i><a href="#">45 comments</a> </li>
+                                <li><i class="fa fa-calendar"></i>2017-04-05</li>
+                            </ul>
+                            <div class="blog-preview_desc">Lorem ipsum dolor sit ame consetur adipisicing elit. Voluptate, consetur adipisicing elit.Lorem ipsum dolor.</div>
+                            <a class="blog-preview_btn" href="blog_single_post.html">Read More <i class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="entry-thumb"> <a href="blog_single_post.html"> <img alt="Blog" src="~/client-side/images/blog-img3.jpg"> </a> </div>
+                        <div class="blog-preview_info">
+                            <h3><a href="blog_single_post.html">Sed do eiusmod sit amet</a></h3>
+                            <ul class="post-meta">
+                                <li><i class="fa fa-user"></i><a href="#">admin</a> </li>
+                                <li><i class="fa fa-comments"></i><a href="#">85 comments</a> </li>
+                                <li><i class="fa fa-calendar"></i>2017-05-05</li>
+                            </ul>
+                            <div class="blog-preview_desc">Lorem ipsum dolor sit ame consetur adipisicing elit. Voluptate, consetur adipisicing elit.Lorem ipsum dolor.</div>
+                            <a class="blog-preview_btn" href="blog_single_post.html">Read More <i class="fa fa-long-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Latest Blog -->

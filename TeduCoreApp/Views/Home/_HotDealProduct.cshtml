@@ -1,0 +1,47 @@
+﻿@model List<ProductViewModel>
+
+<div class="col-md-3 hot-deal col-md-pull-9 col-sm-5">
+    <div class="slider-items-products">
+        <div id="hot-deal-slider" class="product-flexslider hidden-buttons">
+            <div class="slider-items slider-width-col4">
+                @foreach (var item in Model)
+                {
+                    <div class="item">
+                        <div class="item-inner">
+                            <div class="item-img">
+                                <div class="item-img-info">
+                                    <a href="#" title="Product Title Here" class="product-image"> <img src="@item.Image" alt="@item.Name"></a>
+                                    <div class="hot-label hot-top-left">35% off</div>
+                                    <div class="jtv-box-hover">
+                                        <ul class="add-to-links">
+                                            <li><a class="link-quickview" href="quick_view.html"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
+                                            <li><a class="link-wishlist" href="wishlist.html"><i class="icon-heart icons"></i><span class="hidden">Wishlist</span></a></li>
+                                            <li><a class="link-compare" href="compare.html"><i class="icon-shuffle icons"></i><span class="hidden">Compare</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-info">
+                                <div class="info-inner">
+                                    <div class="item-title"> <a href="single_product.html" title="@item.Name"> @item.Name</a></div>
+                                    <div class="item-content">
+                                        <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                        <div class="item-price">
+                                            <div class="price-box"> <span class="regular-price"> <span class="price">@item.Price.ToString("N0")</span> </span> </div>
+                                        </div>
+                                        <div class="action">
+                                            <button data-original-title="Add to Cart" title="" type="button" class="button btn-cart"><span>Add to Cart</span> </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="jtv-box-timer">
+                                    <div class="countbox_1 timer-grid"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

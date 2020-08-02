@@ -34,5 +34,9 @@ namespace TeduCoreApp.Application.Interfaces
         void AddWholePrice(int productId, List<WholePriceViewModel> wholePrices);
 
         List<WholePriceViewModel> GetWholePrices(int productId);
+
+        Task<List<ProductViewModel>> GetLastest(int top);
+
+       Task< List<ProductViewModel>> GetHotProduct(int top);
     }
 }

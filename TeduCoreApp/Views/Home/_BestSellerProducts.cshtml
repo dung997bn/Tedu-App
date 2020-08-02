@@ -1,0 +1,50 @@
+﻿@model List<ProductViewModel>
+<div class="container">
+    <div class="slider-items-products">
+        <div class="bestsell-block">
+            <div class="jtv-block-inner">
+                <div class="block-title">
+                    <h2>Best Sellers</h2>
+                </div>
+            </div>
+            <div id="bestsell-slider" class="product-flexslider hidden-buttons">
+                <div class="slider-items slider-width-col4 products-grid block-content">
+                    @foreach (var item in Model)
+                    {
+                        var url = "/" + item.SeoAlias + "-p." + item.Id + ".html";
+                        <div class="item">
+                            <div class="item-inner">
+                                <div class="item-img">
+                                    <div class="item-img-info">
+                                        <a class="product-image" title="@item.Name" ref="@url"> <img alt="@item.Name" src="~/client-side/images/products/img15.jpg"> </a>
+                                        <div class="jtv-box-hover">
+                                            <ul class="add-to-links">
+                                                <li><a class="link-quickview" href="quick_view.html"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
+                                                <li><a class="link-wishlist" href="wishlist.html"><i class="icon-heart icons"></i><span class="hidden">Wishlist</span></a></li>
+                                                <li><a class="link-compare" href="compare.html"><i class="icon-shuffle icons"></i><span class="hidden">Compare</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="item-info">
+                                    <div class="info-inner">
+                                        <div class="item-title"> <a title="@item.Name" ref="@url"> @item.Name </a> </div>
+                                        <div class="item-content">
+                                            <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                            <div class="item-price">
+                                                <div class="price-box"> <span class="regular-price"> <span class="price">@item.Price.ToString("N0")</span> </span> </div>
+                                            </div>
+                                            <div class="action">
+                                                <button class="button btn-cart" type="button" title="" data-original-title="Add to Cart"><span>Add to Cart</span> </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
