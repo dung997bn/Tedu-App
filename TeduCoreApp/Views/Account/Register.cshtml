@@ -1,0 +1,105 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+@section Scripts{
+    <script src="https://www.google.com/recaptcha/api.js?render=@Configuration["Recaptcha:SiteKey"]"></script>
+    <script>
+        grecaptcha.ready(function() {
+            window.grecaptcha.execute('@Configuration["Recaptcha:SiteKey"]', { action: 'Register' }).then(function (token) {
+                $("#captchaInput").val(token);
+            });
+        });
+    </script>
+}
+
+<section class="main-container col1-layout">
+    <div class="main container">
+        <div class="account-login">
+            <div class="page-title">
+                <h2>Login or Create an Account</h2>
+            </div>
+            <fieldset class="col2-set">
+                <div class="col-1 new-users">
+                    <strong>New Customers</strong>
+                    <div class="content">
+                        <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
+                        <div class="buttons-set">
+                            <a href="login.html" class="button create-account"><span>Login</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2 registered-users">
+                    <strong>New Customers</strong>
+                    <div class="content">
+                        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                            @*  <p>If you have an account with us, please log in.</p>*@
+                            <ul class="form-list">
+                                <li>
+                                    <label asp-for="FullName">Full Name <span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="FullName" type="text" class="input-text required-entry">
+                                </li>
+                                <li>
+                                    <label asp-for="Email">Email Address <span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="Email" type="text" class="input-text required-entry">
+                                </li>
+                                <li>
+                                    <label asp-for="Password" for="pass">Password <span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="Password" type="password" class="input-text required-entry validate-password">
+                                </li>
+                                <li>
+                                    <label asp-for="ConfirmPassword" for="pass">ConfirmPassword <span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="ConfirmPassword" type="password" class="input-text required-entry">
+                                </li>
+                                <li>
+                                    <label asp-for="BirthDay">BirthDay <span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="BirthDay" type="date" class="input-text required-entry">
+                                </li>
+                                <li>
+                                    <label asp-for="PhoneNumber">PhoneNumber <span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="PhoneNumber" type="text" class="input-text required-entry">
+                                </li>
+                                <li>
+                                    <label asp-for="Address">Address <span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="Address" type="text" class="input-text required-entry">
+                                </li>
+                                <li>
+                                    <label asp-for="Avatar">Avatar <span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="Avatar" type="file" class="input-text required-entry">
+                                </li>
+                                <li>
+                                    <input type="hidden" name="captcha" id="captchaInput" />
+                                </li>
+                            </ul>
+                            <p class="required">* Required Fields</p>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="check-title">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons-set">
+                                <button id="send2" name="send" type="submit" class="button login"><span>Register</span></button>
+                                <a class="forgot-word" href="http://demo.magentojtv.com/computerstore/customer/account/forgotpassword/">Forgot Your Password?</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+</section>
+
+

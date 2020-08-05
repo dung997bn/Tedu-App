@@ -1,0 +1,86 @@
+﻿@model LoginViewModel
+@inject SignInManager<AppUser> SignInManager
+@{
+    ViewData["Title"] = "Login";
+}
+<section class="main-container col1-layout">
+    <div class="main container">
+        <div class="account-login">
+            <div class="page-title">
+                <h2>Login</h2>
+            </div>
+            <fieldset class="col2-set">
+                <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+                    <div class="col-2 registered-users">
+                        <strong>Login</strong>
+                        <div class="content">
+                            <p>If you don't have an account with us, please click <a href="register.html">here</a> to register.</p>
+                            <ul class="form-list">
+                                <li>
+                                    <label asp-for="UserName">Email<span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="UserName" type="text" class="input-text required-entry">
+                                </li>
+                                <li>
+                                    <label asp-for="Password" for="pass">Password <span class="required">*</span></label>
+                                    <br>
+                                    <input asp-for="Password" type="password" class="input-text required-entry validate-password">
+                                </li>
+                                <li>
+                                    <label class="inline" asp-for="RememberMe">
+
+                                        <input asp-for="RememberMe" />
+                                        Remember me
+                                    </label>
+                                </li>
+
+                            </ul>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="check-title">
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <section>
+                                <h4>Use another service to log in.</h4>
+                                <hr />
+                                @{
+                                    var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                                    if (loginProviders.Count == 0)
+                                    {
+                                        <div>
+                                            <p>
+                                                There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                                for details on setting up this ASP.NET application to support logging in via external services.
+                                            </p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @*<form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                                            <div>
+                                                <p>
+                                                    @foreach (var provider in loginProviders)
+                                                    {
+                                                        <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
+                                                    }
+                                                </p>
+                                            </div>
+                                        </form>*@
+                                    }
+                                }
+                            </section>
+                            <div class="buttons-set">
+                                <button id="send2" type="submit" class="button login"><span>Login</span></button>
+                                <a class="forgot-word" href="http://demo.magentojtv.com/computerstore/customer/account/forgotpassword/">Forgot Your Password?</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+    </div>
+</section>
+

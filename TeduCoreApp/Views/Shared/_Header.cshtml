@@ -37,7 +37,7 @@
                                 <ul>
                                     <li> <a title="My Account" href="account_page.html"><span class="hidden-xs">My Account</span></a> </li>
                                     <li> <a title="Wishlist" href="wishlist.html">Wishlist</a> </li>
-                                    <li> <a title="Checkout" href="checkout.html"><span class="hidden-xs">Checkout</span></a> </li>
+                                    @*<li> <a title="Checkout" href="checkout.html"><span class="hidden-xs">Checkout</span></a> </li>*@
                                     <li>
                                         <div class="dropdown block-company-wrapper hidden-xs">
                                             <a role="button" data-toggle="dropdown" data-target="#" class="block-company dropdown-toggle" href="#"> More <span class="caret"></span></a>
@@ -51,7 +51,22 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li> <a href="account_page.html"><span class="hidden-xs">Log In</span></a> </li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+
+                                        <li> <a href="register.html"><span class="hidden-xs">Xin chào @User.GetSpecificClaim("FullName")</span></a> </li>
+                                        <li>
+                                            <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                                                <a href="#" onclick="document.getElementById('logoutForm').submit()"><span class="hidden-xs">Thoát</span></a>
+                                            </form>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li> <a href="register.html"><span class="hidden-xs">Register</span></a> </li>
+                                        <li> <a href="login.html"><span class="hidden-xs">Log In</span></a> </li>
+                                    }
+
                                 </ul>
                             </div>
                         </div>
@@ -74,7 +89,7 @@
                                     <ul class="mini-products-list" id="cart-sidebar">
                                         <li class="item first">
                                             <div class="item-inner">
-                                                <a class="product-image" title="Product Title Here ref=" #"><img alt="Product Title Here" " src="~/client-side/images/products/img01.jpg"> </a>
+                                                <a class="product-image" title="Product Title Here" href=" #"><img alt="Product Title Here" src="~/client-side/images/products/img01.jpg"> </a>
                                                 <div class="product-details">
                                                     <div class="access"><a class="jtv-btn-remove" title="Remove This Item" href="#">Remove</a> <a class="btn-edit" title="Edit item" href="#"><i class="icon-pencil"></i><span class="hidden">Edit item</span></a> </div>
                                                     <p class="product-name"><a href="#">Product Title Here</a> </p>
@@ -84,7 +99,7 @@
                                         </li>
                                         <li class="item">
                                             <div class="item-inner">
-                                                <a class="product-image" title="Product Title Here ref=" single_product.html"><img alt="Product Title Here" " src="~/client-side/images/products/img02.jpg"> </a>
+                                                <a class="product-image" title="Product Title Here" href=" single_product.html"><img alt="Product Title Here" src="~/client-side/images/products/img02.jpg"> </a>
                                                 <div class="product-details">
                                                     <div class="access"><a class="jtv-btn-remove" title="Remove This Item" href="#">Remove</a> <a class="btn-edit" title="Edit item" href="#"><i class="icon-pencil"></i><span class="hidden">Edit item</span></a> </div>
                                                     <p class="product-name"><a href="#">Product Title Here</a> </p>
@@ -94,7 +109,7 @@
                                         </li>
                                         <li class="item last">
                                             <div class="item-inner">
-                                                <a class="product-image" title="Product Title Here ref=" single_product.html"><img alt="Product Title Here" " src="~/client-side/images/products/img04.jpg"> </a>
+                                                <a class="product-image" title="Product Title Here" ref=" single_product.html"><img alt="Product Title Here" src="~/client-side/images/products/img04.jpg"> </a>
                                                 <div class="product-details">
                                                     <div class="access"><a class="jtv-btn-remove" title="Remove This Item" href="#">Remove</a> <a class="btn-edit" title="Edit item" href="#"><i class="icon-pencil"></i><span class="hidden">Edit item</span></a> </div>
                                                     <p class="product-name"><a href="#">Product Title Here</a> </p>
@@ -121,9 +136,9 @@
                 </div>
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 hidden-xs">
                     <div class="search-box">
-                        <form action="cat" method="POST" id="search_mini_form" name="Categories">
-                            <input type="text" placeholder="Search entire store here..." value="Search" maxlength="70" name="search" id="search">
-                            <button type="button" class="search-btn-bg"><span class="glyphicon glyphicon-search"></span>&nbsp;</button>
+                        <form method="get" action="/search.html">
+                            <input type="text" placeholder="Search entire store here..." value="" maxlength="70" name="keyword" id="search">
+                            <button type="submit" class="search-btn-bg"><span class="glyphicon glyphicon-search"></span>&nbsp;</button>
                         </form>
                     </div>
                 </div>

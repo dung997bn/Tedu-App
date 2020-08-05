@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeduCoreApp.Application.Interfaces;
+using TeduCoreApp.Application.ViewModels.Common;
 using TeduCoreApp.Application.ViewModels.Product;
 using TeduCoreApp.Data.Entities;
 using TeduCoreApp.Data.Enums;
@@ -231,9 +232,9 @@ namespace TeduCoreApp.Application.Implementations
             }
         }
 
-        public List<ProductImageViewModel> GetImages(int productId)
+        public Task<List<ProductImageViewModel>> GetImages(int productId)
         {
-            return _mapper.ProjectTo<ProductImageViewModel>(_productImageRepository.FindAll(x => x.ProductId == productId)).ToList();
+            return _mapper.ProjectTo<ProductImageViewModel>(_productImageRepository.FindAll(x => x.ProductId == productId)).ToListAsync();
         }
 
         public void AddImages(int productId, string[] images)
@@ -287,5 +288,41 @@ namespace TeduCoreApp.Application.Implementations
                 .ToListAsync();
         }
 
+
+        public Task<List<ProductViewModel>> GetRelatedProducts(int id, int top)
+        {
+            var product = _productRepository.FindById(id);
+            return _mapper
+            .ProjectTo<ProductViewModel>(_productRepository.FindAll(x => x.Status == Status.Active
+                && x.Id != id && x.CategoryId == product.CategoryId)
+            .OrderByDescending(x => x.DateCreated)
+            .Take(top))
+            .ToListAsync();
+        }
+
+        public Task<List<ProductViewModel>> GetUpsellProducts(int top)
+        {
+            return _mapper
+               .ProjectTo<ProductViewModel>(_productRepository.FindAll(x => x.PromotionPrice != null)
+               .OrderByDescending(x => x.DateModified)
+               .Take(top)).ToListAsync();
+        }
+
+        public Task<List<TagViewModel>> GetProductTags(int productId)
+        {
+            var tags = _tagRepository.FindAll();
+            var productTags = _productTagRepository.FindAll();
+
+            var query = from t in tags
+                        join pt in productTags
+                        on t.Id equals pt.TagId
+                        where pt.ProductId == productId
+                        select new TagViewModel()
+                        {
+                            Id = t.Id,
+                            Name = t.Name
+                        };
+            return query.ToListAsync();
+        }
     }
 }

@@ -31,6 +31,8 @@ using Newtonsoft.Json.Serialization;
 using TeduCoreApp.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using TeduCoreApp.Authorization;
+using GoogleReCaptcha.V3.Interface;
+using GoogleReCaptcha.V3;
 
 namespace TeduCoreApp
 {
@@ -131,6 +133,8 @@ namespace TeduCoreApp
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
             }); ;
+
+            services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();
             services.AddRazorPages();
         }
 

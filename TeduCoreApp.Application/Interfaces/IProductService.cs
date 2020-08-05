@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using TeduCoreApp.Application.ViewModels.Common;
 using TeduCoreApp.Application.ViewModels.Product;
 using TeduCoreApp.Ultilities.Dtos;
 
@@ -29,7 +30,7 @@ namespace TeduCoreApp.Application.Interfaces
 
         void AddImages(int productId, string[] images);
 
-        List<ProductImageViewModel> GetImages(int productId);
+        Task<List<ProductImageViewModel>> GetImages(int productId);
 
         void AddWholePrice(int productId, List<WholePriceViewModel> wholePrices);
 
@@ -37,6 +38,12 @@ namespace TeduCoreApp.Application.Interfaces
 
         Task<List<ProductViewModel>> GetLastest(int top);
 
-       Task< List<ProductViewModel>> GetHotProduct(int top);
+        Task<List<ProductViewModel>> GetHotProduct(int top);
+
+        Task<List<ProductViewModel>> GetRelatedProducts(int id, int top);
+
+        Task<List<ProductViewModel>> GetUpsellProducts(int top);
+
+        Task<List<TagViewModel>> GetProductTags(int productId);
     }
 }
