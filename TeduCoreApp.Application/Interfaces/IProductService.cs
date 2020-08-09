@@ -45,5 +45,7 @@ namespace TeduCoreApp.Application.Interfaces
         Task<List<ProductViewModel>> GetUpsellProducts(int top);
 
         Task<List<TagViewModel>> GetProductTags(int productId);
+
+        bool CheckAvailability(int productId, int size, int color);
     }
 }

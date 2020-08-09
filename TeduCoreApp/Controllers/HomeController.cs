@@ -27,7 +27,6 @@ namespace TeduCoreApp.Controllers
             _blogService = blogService;
             _commonService = commonService;
         }
-
         public async Task<IActionResult> Index()
         {
             ViewData["BodyClass"] = "cms-index-index cms-home-page";

@@ -1,0 +1,99 @@
+﻿@model QuickViewViewModel
+
+<div style="display: block; position:fixed !important;" id="quick_view_popup-wrap">
+    @if (Model.Product != null)
+    {
+        var product = Model.Product;
+        var stock = product?.Status == TeduCoreApp.Data.Enums.Status.Active ? "In Stock" : "Out of Stock";
+
+        <div id="quick_view_popup-outer">
+            <div id="quick_view_popup-content">
+                <div style="width:auto;height:auto;overflow: auto;position:relative;">
+                    <div class="product-view">
+                        <div class="product-img-box col-lg-6 col-sm-6 col-xs-12">
+                            <div class="new-label new-top-left"> New </div>
+                            <div class="product-image">
+                                <div class="product-full"> <img id="product-zoom" src="@product?.Image" data-zoom-image="@product?.Image" alt="@product?.Name" /> </div>
+                                <div class="more-views">
+                                    <div class="slider-items-products">
+                                        <div id="gallery_01" class="product-flexslider hidden-buttons product-img-thumb">
+                                            <div class="slider-items slider-width-col4 block-content">
+                                                @foreach (var image in Model.ProductImages)
+                                                {
+                                                    <div class="more-views-items"> <a href="#" data-image="@image.Path" data-zoom-image="@image.Path"> <img id="product-zoom" src="@image.Path" alt="@product.Name" /> </a></div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end: more-images -->
+                        </div>
+                        <div class="product-shop col-lg-6 col-sm-6 col-xs-12">
+                            <div class="product-name">
+                                <h1>@product?.Name</h1>
+                            </div>
+                            <div class="rating">
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i>
+                                <p class="rating-links"> <a href="#">4 Review(s)</a> <span class="separator">|</span> <a href="#"><i class="fa fa-pencil"></i> write a review</a> </p>
+                            </div>
+                            <div class="price-block">
+                                <div class="price-box">
+                                    <p class="special-price"> <span class="price-label">Special Price</span> <span id="product-price-48" class="price">@(product.PromotionPrice.HasValue ? product.PromotionPrice.Value.ToString("N0") : product.Price.ToString("N0"))</span> </p>
+                                    <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> @product.Price.ToString("N0") </span> </p>
+                                </div>
+                            </div>
+                            <div class="info-orther">
+                                <p>Item Code: #12345678</p>
+                                <p>Availability: <span class="in-stock">@stock</span></p>
+                                <p>Condition: New</p>
+                            </div>
+                            <div class="short-description">
+                                <h2>Quick Overview</h2>
+                                <p>@product.Description </p>
+                            </div>
+                            <div class="form-option">
+                                <p class="form-option-title">Available Options:</p>
+                                <div class="attributes">
+                                    <div class="attribute-label">Color:</div>
+                                    <div class="attribute-list">
+                                        <ul class="list-color">
+                                            @foreach (var item in Model.Colors)
+                                            {
+                                                <li style="background:@item.Code;"><a href="#">@item.Name</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="add-to-box">
+                                    <div class="add-to-cart">
+                                        <div class="pull-left">
+                                            <div class="custom pull-left">
+                                                <label>Qty :</label>
+                                                <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value--;return false;" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
+                                                <input type="text" class="input-text qty" title="Qty" value="1" maxlength="12" id="qty" name="qty">
+                                                <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
+                                            </div>
+                                        </div>
+                                        <button onClick="productAddToCartForm.submit(this)" class="button btn-cart" title="Add to Cart" type="button"><span> Add to Cart</span></button>
+                                    </div>
+                                    <div class="email-addto-box">
+                                        <ul class="add-to-links">
+                                            <li> <a class="link-wishlist" href="wishlist.html"><span>Add to Wishlist</span></a></li>
+                                            <li><span class="separator">|</span> <a class="link-compare" href="compare.html"><span>Add to Compare</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--product-view-->
+                </div>
+            </div><a style="display: inline;" id="quick_view_popup-close" href="#"><i class="fa fa-times-circle"></i></a>
+        </div>
+    }
+</div>
+
+
+
+

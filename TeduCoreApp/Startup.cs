@@ -50,7 +50,8 @@ namespace TeduCoreApp
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("TeduConnection"), o => o.MigrationsAssembly("TeduCoreApp.Data.EF")));
+                    Configuration.GetConnectionString("TeduConnection"), o => o.MigrationsAssembly("TeduCoreApp.Data.EF"))
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
@@ -80,6 +81,7 @@ namespace TeduCoreApp
             //services.AddScoped<IMapper>(sp => new Mapper(sp.GetRequiredService<AutoMapper.IConfigurationProvider>(), sp.GetService));
 
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IViewRenderService, ViewRenderService>();
 
             //Extensions
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
@@ -134,6 +136,17 @@ namespace TeduCoreApp
                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
             }); ;
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
+
+
             services.AddHttpClient<ICaptchaValidator, GoogleReCaptchaValidator>();
             services.AddRazorPages();
         }
@@ -160,6 +173,7 @@ namespace TeduCoreApp
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

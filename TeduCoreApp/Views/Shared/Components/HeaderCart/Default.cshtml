@@ -1,0 +1,40 @@
+﻿@model List<ShoppingCartViewModel>
+<div class="mini-cart" id="header-cart">
+    <div data-toggle="dropdown" data-hover="dropdown" class="basket dropdown-toggle">
+        <a href="shopping_cart.html">
+            @if (Model.Count > 0)
+            {
+                <span class="cart_count">@Model.Count</span>
+            }
+            <span class="price">My Bag / $259.00</span>
+        </a>
+    </div>
+    <div>
+        <div class="jtv-top-cart-content">
+            @if (Model.Count > 0)
+            {
+                <ul class="mini-products-list" id="cart-sidebar">
+                    <!--block-subtitle-->
+                    @foreach (var item in Model)
+                    {
+                        <li class="item first">
+                            <div class="item-inner">
+                                <a class="product-image" title="@item.Product.Name" href=" #"><img alt="@item.Product.Name" src="@item.Product.Image"> </a>
+                                <div class="product-details">
+                                    <div class="access"><a class="jtv-btn-remove" title="Remove This Item" href="#">Remove</a> <a class="btn-edit" title="Edit item" href="#"><i class="icon-pencil"></i><span class="hidden">Edit item</span></a> </div>
+                                    <p class="product-name"><a href="#">@item.Product.Name</a> </p>
+                                    <strong>@item.Quantity</strong> x <span class="price">@((item.Product.PromotionPrice ?? item.Product.Price).ToString("N0"))</span>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+                <!--actions-->
+                <div class="actions">
+                    <button class="btn-checkout" title="Checkout" type="button" onClick=" window.location.href='/checkout.html'"><span>Checkout</span> </button>
+                    <a href="cart.html" class="view-cart"><span>View Cart</span></a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

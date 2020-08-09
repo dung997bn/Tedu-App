@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TeduCoreApp.Application.ViewModels.Bill;
 using TeduCoreApp.Data.Enums;
 using TeduCoreApp.Ultilities.Dtos;
@@ -25,10 +26,13 @@ namespace TeduCoreApp.Application.Interfaces
 
         List<BillDetailViewModel> GetBillDetails(int billId);
 
-        List<ColorViewModel> GetColors();
+        Task<List<ColorViewModel>> GetColors();
 
-        List<SizeViewModel> GetSizes();
+        Task<List<SizeViewModel>> GetSizes();
 
+        ColorViewModel GetColor(int id);
+
+        SizeViewModel GetSize(int id);
         void Save();
     }
 }

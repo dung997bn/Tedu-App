@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using TeduCoreApp.Application.Interfaces;
 using TeduCoreApp.Models.ProductViewModels;
@@ -14,17 +15,22 @@ namespace TeduCoreApp.Controllers
         IProductService _productService;
         IProductCategoryService _productCategoryService;
         IConfiguration _configuration;
-        public ProductController(IProductService productService, IConfiguration configuration,
-            IProductCategoryService productCategoryService)
+        IBillService _billService;
+
+        public ProductController(IProductService productService, IProductCategoryService productCategoryService,
+            IConfiguration configuration, IBillService billService)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
             _configuration = configuration;
+            _billService = billService;
         }
+
         [Route("products.html")]
         public IActionResult Index()
         {
-            return View();
+            var categories = _productCategoryService.GetAll();
+            return View(categories);
         }
 
         [Route("{alias}-c.{id}.html")]
@@ -101,6 +107,19 @@ namespace TeduCoreApp.Controllers
             model.UpsellProducts = await _productService.GetUpsellProducts(6);
             model.ProductImages = await _productService.GetImages(id);
             model.Tags = await _productService.GetProductTags(id);
+            //model.Available=_productService.C
+            var colors = await _billService.GetColors();
+            model.Colors = colors.Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
+            var sizes = await _billService.GetSizes();
+            model.Sizes = sizes.Select(x => new SelectListItem()
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            }).ToList();
             return View(model);
         }
     }

@@ -16,6 +16,7 @@ namespace TeduCoreApp.Data.EF
         public EFRepository(AppDbContext context)
         {
             _context = context;
+            _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
         public void Add(T entity)
         {

@@ -1,0 +1,188 @@
+﻿@model CheckoutViewModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a href="index.html" title="Go to Home Page">Home</a> <span>/</span> </li>
+                    <li> <strong>Checkout</strong> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main-container -->
+<div class="main-container col1-layout">
+    <div class="main container">
+        <div class="row">
+            <section class="col-sm-12 col-xs-12">
+                <div class="col-main">
+                    <div class="page-title">
+                        <h1>Checkout</h1>
+                    </div>
+                    <div class="page-content checkout-page">
+                        @if (ViewData["Success"] != null)
+                        {
+                            if ((bool)ViewData["Success"] == true)
+                            {
+                                <div class="alert alert-success">
+                                    Thank you for your order. We are going to confirm your order soon.
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="alert alert-danger">
+                                    Have an error in order progress. Please contact to administrator.
+                                </div>
+
+                            }
+                        }
+                        else
+                        {
+                            <form action="/checkout.html" method="post">
+                                @Html.AntiForgeryToken()
+                                <h3 class="checkout-sep">1. Checkout Method</h3>
+                                <div class="box-border">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <h4>Checkout as a Guest or Register</h4>
+                                            <p>Register with us for future convenience:</p>
+                                            <button onclick="window.location.href='/login.html'" class="button">Continue</button>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <h4>Login</h4>
+                                            <p>Already registered? Please log in below:</p>
+                                            <button onclick="window.location.href='/register.html'" class="button">Login</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="checkout-sep">2. Billing Infomations</h3>
+                                <div class="box-border">
+                                    <ul>
+                                        <li class="row">
+                                            <div class="col-sm-6">
+                                                <label for="first_name" class="required">Name</label>
+                                                <input type="text" class="input form-control" asp-for="CustomerName">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label asp-for="CustomerMobile" class="required">Telephone</label>
+                                                <input class="input form-control" type="text" asp-for="CustomerMobile">
+                                            </div>
+                                        </li>
+                                        <!--/ .row -->
+                                        <li class="row">
+                                            <div class="col-xs-12">
+                                                <label asp-for="CustomerAddress" class="required">Address</label>
+                                                <input type="text" class="input form-control" asp-for="CustomerAddress">
+                                            </div>
+                                        </li>
+                                        <!-- / .row -->
+                                        <li class="row">
+                                            <div class="col-sm-6">
+                                                <label asp-for="CustomerMessage">Message</label>
+                                                <input class="input form-control" type="text" asp-for="CustomerMessage">
+                                            </div>
+                                        </li>
+                                        <!--/ .row -->
+                                    </ul>
+                                </div>
+                                <h3 class="checkout-sep">3. Shipping Method</h3>
+                                <div class="box-border">
+                                    <ul class="shipping_method">
+                                        <li>
+                                            <p class="subcaption bold">Free Shipping</p>
+                                            <label for="radio_button_3">
+                                                <input type="radio" checked name="radio_3" id="radio_button_3">
+                                                Free $0
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <p class="subcaption bold">Free Shipping</p>
+                                            <label for="radio_button_4">
+                                                <input type="radio" name="radio_3" id="radio_button_4">
+                                                Standard Shipping $5.00
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h3 class="checkout-sep">4. Payment Information</h3>
+                                <div class="box-border">
+                                    <ul>
+                                        @for (int i = 0; i < Model.PaymentMethods.Count; i++)
+                                        {
+                                            <li>
+                                                <label asp-for="@Model.PaymentMethods[i]">
+                                                    <input type="radio" checked name="paymentMethod" asp-for="PaymentMethod" value="@Model.PaymentMethods[i].Value">
+                                                    @Model.PaymentMethods[i].Name
+                                                </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                                <h3 class="checkout-sep">6. Order Review</h3>
+                                <div class="box-border">
+                                    <div class="order-detail-content">
+                                        <table class="table table-bordered table-responsive jtv-cart-summary">
+                                            <thead>
+                                                <tr>
+                                                    <th class="cart_product">Product</th>
+                                                    <th>Description</th>
+                                                    <th>Avail.</th>
+                                                    <th>Unit price</th>
+                                                    <th>Qty</th>
+                                                    <th>Total</th>
+                                                    <th class="action"><i class="fa fa-trash-o"></i></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var cart in Model.Carts)
+                                                {
+                                                    <tr>
+                                                        <td class="cart_product"><a href="#"><img src="@cart.Product.Image" alt="@cart.Product.Name"></a></td>
+                                                        <td class="cart_description">
+                                                            <p class="product-name"><a href="#"> @cart.Product.Name </a></p>
+                                                            <small><a href="#">Size : @cart.Size.Name</a></small><br>
+                                                            <small><a href="#">Color : @cart.Color.Name</a></small><br>
+                                                        </td>
+                                                        <td class="cart_avail"><span class="label label-success">In stock</span></td>
+                                                        <td class="price"><span>@cart.Price.ToString("N0")</span></td>
+                                                        <td class="qty">
+                                                            <span>@cart.Quantity</span>
+                                                        </td>
+                                                        <td class="price"><span>@((cart.Price * cart.Quantity).ToString("N0"))</span></td>
+                                                        <td class="action"><a href="#">Delete item</a></td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="2" rowspan="2"></td>
+                                                    <td colspan="3">Total products (tax incl.)</td>
+                                                    <td colspan="2">@Model.Carts.Sum(x => x.Quantity * x.Price).ToString("N0")</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><strong>Total : @Model.Carts.Sum(x => x.Quantity)</strong></td>
+                                                    <td colspan="2"><strong>@Model.Carts.Sum(x => x.Quantity * x.Price).ToString("N0")</strong></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                        <div class="cart_navigation">
+                                            <button type="submit" class="button pull-right">Place Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!--End main-container -->

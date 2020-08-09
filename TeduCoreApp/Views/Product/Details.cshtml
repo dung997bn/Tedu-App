@@ -6,8 +6,31 @@
     var category = Model.Category;
     var product = Model.Product;
 }
+@section Scripts{
+    <script src="~/client-side/app/controllers/product/details.js"></script>
+    <script>
+        var productObj = new ProductDetailController();
+        productObj.initialize();
+    </script>
 
+}
+@section Styles{
+    <style>
+        .btn-cart-detail {
+            font-size: 16px;
+            text-shadow: none;
+            padding: 7px 20px;
+            float: left;
+            margin-top: 0px;
+            transition: color 300ms ease-in-out 0s, background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0s;
+            margin-left: 12px;
+            border: none;
+            height: 40px;
+            text-transform: uppercase;
+        }
+    </style>
 
+}
 <!-- Breadcrumbs -->
 <div class="breadcrumbs">
     <div class="container">
@@ -44,7 +67,6 @@
                                                         {
                                                             <div class="more-views-items"> <a href="#" data-image="@image.Path" data-zoom-image="@image.Path"> <img id="product-zoom" src="@image.Path" alt="@product.Name" /> </a></div>
                                                         }
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -67,7 +89,6 @@
                                             {
                                                 <p class="special-price"> <span class="price-label">Special Price</span> <span id="product-price-48" class="price"> @product.PromotionPrice.Value.ToString("N0") </span> </p>
                                             }
-
                                             <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> @product.Price.ToString("N0") </span> </p>
                                         </div>
                                     </div>
@@ -85,14 +106,11 @@
                                         <div class="attributes">
                                             <div class="attribute-label">Color:</div>
                                             <div class="attribute-list">
-                                                <ul class="list-color">
-                                                    <li style="background:#DD4132;"><a href="#">Fiesta</a></li>
-                                                    <li style="background:#4F84C4;"><a href="#">Marina</a></li>
-                                                    <li style="background:#EE82EE;" class="active"><a href="#">Violet</a></li>
-                                                    <li style="background:#92B558;"><a href="#">Green</a></li>
-                                                    <li style="background:#191970;"><a href="#">MidnightBlue</a></li>
-                                                    <li style="background:#ff0000;"><a href="#">red</a></li>
-                                                </ul>
+                                                <select asp-items="Model.Colors" id="ddlColorId"></select>
+                                            </div>
+                                            <div class="attribute-label">Size:</div>
+                                            <div class="attribute-list">
+                                                <select asp-items="Model.Sizes" id="ddlSizeId"></select>
                                             </div>
                                         </div>
                                         <div class="add-to-box">
@@ -100,17 +118,17 @@
                                                 <div class="pull-left">
                                                     <div class="custom pull-left">
                                                         <label>Qty :</label>
-                                                        <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
-                                                        <input type="text" class="input-text qty" title="Qty" value="1" maxlength="12" id="qty" name="qty">
-                                                        <button onClick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
+                                                        <button onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="reduced items-count" type="button"><i class="fa fa-minus">&nbsp;</i></button>
+                                                        <input type="text" class="input-text qty" title="Qty" value="1" id="txtQuantity">
+                                                        <button onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="increase items-count" type="button"><i class="fa fa-plus">&nbsp;</i></button>
                                                     </div>
                                                 </div>
-                                                <button onClick="productAddToCartForm.submit(this)" class="button btn-cart" title="Add to Cart" type="button">Add to Cart</span></button>
+                                                <button class="button btn-cart-detail" title="Add to Cart" id="btnAddToCart" href="#" data-id="@product.Id" type="button"><span> Add to Cart</span></button>
                                             </div>
                                             <div class="email-addto-box">
                                                 <ul class="add-to-links">
                                                     <li> <a class="link-wishlist" href="wishlist.html"><span>Add to Wishlist</span></a></li>
-                                                    <li><span class="separator">|</span> <a class="link-compare" href="compare.html"><span>Add to Compare</span></a></li>
+                                                    <li><span class="separator">|</span> <a class="link-compare"><span>Add to Compare</span></a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -389,7 +407,6 @@
 </section>
 <!-- Main Container End -->
 <!-- Related Products Slider -->
-
 <div class="container">
     <div class="related-section">
         <div class="slider-items-products">
@@ -410,7 +427,7 @@
                                             <a class="product-image" title="@item.Name" ref=" single_product.html"> <img alt="@item.Name" src="@item.Image"> </a>
                                             <div class="jtv-box-hover">
                                                 <ul class="add-to-links">
-                                                    <li><a class="link-quickview" href="#"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
+                                                    <li><a class="link-quickview" data-id="@item.Id" href="#"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
                                                     <li><a class="link-wishlist" href="#"><i class="icon-heart icons"></i><span class="hidden">Wishlist</span></a></li>
                                                     <li><a class="link-compare" href="#"><i class="icon-shuffle icons"></i><span class="hidden">Compare</span></a></li>
                                                 </ul>
@@ -433,9 +450,7 @@
                                     </div>
                                 </div>
                             </div>
-
                         }
-
                     </div>
                 </div>
             </div>
@@ -464,7 +479,7 @@
                                             <a class="product-image" title="@upSell.Name" ref="single_product.html"> <img alt="@upSell.Name" src="@upSell.Image"> </a>
                                             <div class="jtv-box-hover">
                                                 <ul class="add-to-links">
-                                                    <li><a class="link-quickview" href="#"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
+                                                    <li><a class="link-quickview" data-id="@upSell.Id" href="#"><i class="icon-magnifier-add icons"></i><span class="hidden">Quick View</span></a></li>
                                                     <li><a class="link-wishlist" href="#"><i class="icon-heart icons"></i><span class="hidden">Wishlist</span></a></li>
                                                     <li><a class="link-compare" href="#"><i class="icon-shuffle icons"></i><span class="hidden">Compare</span></a></li>
                                                 </ul>

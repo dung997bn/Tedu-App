@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TeduCoreApp.Application.Interfaces;
 using TeduCoreApp.Application.ViewModels.Bill;
 using TeduCoreApp.Data.Entities;
@@ -64,7 +66,7 @@ namespace TeduCoreApp.Application.Implementations
             var updatedDetails = newDetails.Where(x => x.Id != 0).ToList();
 
             //Existed details
-            var existedDetails = _orderDetailRepository.FindAll(x => x.BillId == billVm.Id).ToList();
+            var existedDetails = _orderDetailRepository.FindAll(x => x.BillId == billVm.Id, x => x.Product).ToList();
 
             //Clear db
             order.BillDetails.Clear();
@@ -93,9 +95,9 @@ namespace TeduCoreApp.Application.Implementations
             _orderRepository.Update(order);
         }
 
-        public List<SizeViewModel> GetSizes()
+        public Task<List<SizeViewModel>> GetSizes()
         {
-            return _mapper.ProjectTo<SizeViewModel>(_sizeRepository.FindAll()).ToList();
+            return _mapper.ProjectTo<SizeViewModel>(_sizeRepository.FindAll()).ToListAsync();
         }
 
         public void Save()
@@ -150,9 +152,9 @@ namespace TeduCoreApp.Application.Implementations
                           .FindAll(x => x.BillId == billId, c => c.Bill, c => c.Color, c => c.Size, c => c.Product)).ToList();
         }
 
-        public List<ColorViewModel> GetColors()
+        public Task<List<ColorViewModel>> GetColors()
         {
-            return _mapper.ProjectTo<ColorViewModel>(_colorRepository.FindAll()).ToList();
+            return _mapper.ProjectTo<ColorViewModel>(_colorRepository.FindAll()).ToListAsync();
         }
 
         public BillDetailViewModel CreateDetail(BillDetailViewModel billDetailVm)
@@ -167,6 +169,16 @@ namespace TeduCoreApp.Application.Implementations
             var detail = _orderDetailRepository.FindSingle(x => x.ProductId == productId
            && x.BillId == billId && x.ColorId == colorId && x.SizeId == sizeId);
             _orderDetailRepository.Remove(detail);
+        }
+
+        public ColorViewModel GetColor(int id)
+        {
+            return _mapper.Map<Color, ColorViewModel>(_colorRepository.FindById(id));
+        }
+
+        public SizeViewModel GetSize(int id)
+        {
+            return _mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
         }
     }
 }

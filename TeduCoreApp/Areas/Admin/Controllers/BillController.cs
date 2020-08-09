@@ -95,16 +95,16 @@ namespace TeduCoreApp.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetColors()
+        public async Task<IActionResult> GetColors()
         {
-            var colors = _billService.GetColors();
+            var colors = await _billService.GetColors();
             return new OkObjectResult(colors);
         }
 
         [HttpGet]
-        public IActionResult GetSizes()
+        public async Task<IActionResult> GetSizes()
         {
-            var sizes = _billService.GetSizes();
+            var sizes = await _billService.GetSizes();
             return new OkObjectResult(sizes);
         }
         [HttpPost]
@@ -113,7 +113,7 @@ namespace TeduCoreApp.Areas.Admin.Controllers
             string sWebRootFolder = _hostingEnvironment.WebRootPath;
             string sFileName = $"Bill_{billId}.xlsx";
             // Template File
-            string templateDocument = Path.Combine(sWebRootFolder,"admin-side", "templates", "BillTemplate.xlsx");
+            string templateDocument = Path.Combine(sWebRootFolder, "admin-side", "templates", "BillTemplate.xlsx");
 
             string url = $"{Request.Scheme}://{Request.Host}/{"export-files"}/{sFileName}";
             FileInfo file = new FileInfo(Path.Combine(sWebRootFolder, "export-files", sFileName));

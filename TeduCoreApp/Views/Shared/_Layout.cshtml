@@ -23,9 +23,6 @@
     <!-- mobile menu -->
     @await Component.InvokeAsync("MobileMenu")
     <div id="page">
-        <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
         <!-- Header -->
         <partial name="_Header.cshtml" model="null" />
         <!-- end header -->
@@ -41,52 +38,59 @@
         <!-- JTV Home Slider -->
         @RenderBody()
         <!-- Brand Logo -->
-         <partial name="_Footer.cshtml" model="null" />
+        <partial name="_Footer.cshtml" model="null" />
+        <div id="quick_view_popup-overlay" style="display:none;"></div>
+        <div id="show-review" style="display:none;">
+            <vc:quick-review></vc:quick-review>
+        </div>
+
     </div>
+
     <!-- End Footer -->
-    <!-- jquery js -->
     <script type="text/javascript" src="~/client-side/js/jquery.min.js"></script>
-    <!-- bootstrap js -->
     <script type="text/javascript" src="~/client-side/js/bootstrap.min.js"></script>
-    <!-- owl.carousel.min js -->
     <script type="text/javascript" src="~/client-side/js/owl.carousel.min.js"></script>
-    <!-- jtv-jtv-mobile-menu js -->
     <script type="text/javascript" src="~/client-side/js/jtv-mobile-menu.js"></script>
-    <!-- countdown js -->
     <script type="text/javascript" src="~/client-side/js/countdown.js"></script>
-    <!-- main js -->
     <script type="text/javascript" src="~/client-side/js/main.js"></script>
-    <!-- rev-slider js -->
+    <script src="~/admin-side/libs/mustache/mustache.min.js"></script>
+    <script src="~/admin-side/libs/notifyjs/notify.js"></script>
     <script type="text/javascript" src="~/client-side/js/rev-slider.js"></script>
+    <script src="~/client-side/app/controllers/shared/tedu.js"></script>
+    <script src="~/client-side/app/controllers/base/index.js"></script>
+    <script>
+        var baseObj = new BaseController();
+        baseObj.initialize();
+    </script>
     @RenderSection("Scripts", required: false)
     <!--Newsletter Popup Start-->
     @*<div id="myModal" class="modal fade">
-        <div class="modal-dialog newsletter-popup">
-            <div class="modal-content">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <div class="modal-body">
-                    <h4 class="modal-title">NEWSLETTER SIGNUP</h4>
-                    <form id="newsletter-form" method="post" action="#">
-                        <div class="content-subscribe">
-                            <div class="form-subscribe-header">
-                                <label>Subscribe to be the first to know about Sales, Events, and Exclusive Offers!</label>
+            <div class="modal-dialog newsletter-popup">
+                <div class="modal-content">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <div class="modal-body">
+                        <h4 class="modal-title">NEWSLETTER SIGNUP</h4>
+                        <form id="newsletter-form" method="post" action="#">
+                            <div class="content-subscribe">
+                                <div class="form-subscribe-header">
+                                    <label>Subscribe to be the first to know about Sales, Events, and Exclusive Offers!</label>
+                                </div>
+                                <div class="input-box">
+                                    <input type="text" class="input-text newsletter-subscribe" title="Sign up for our newsletter" name="email" placeholder="Enter your email address">
+                                </div>
+                                <div class="actions">
+                                    <button class="button-subscribe" title="Subscribe" type="submit">Subscribe</button>
+                                </div>
                             </div>
-                            <div class="input-box">
-                                <input type="text" class="input-text newsletter-subscribe" title="Sign up for our newsletter" name="email" placeholder="Enter your email address">
-                            </div>
-                            <div class="actions">
-                                <button class="button-subscribe" title="Subscribe" type="submit">Subscribe</button>
-                            </div>
+                        </form>
+                        <div class="subscribe-bottom">
+                            <input name="notshowpopup" id="notshowpopup" type="checkbox">
+                            Don’t show this popup again
                         </div>
-                    </form>
-                    <div class="subscribe-bottom">
-                        <input name="notshowpopup" id="notshowpopup" type="checkbox">
-                        Don’t show this popup again
                     </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
     <!--End of Newsletter Popup-->
 </body>
 </html>
